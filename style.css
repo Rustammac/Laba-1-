@@ -1,28 +1,48 @@
-*, *::before, *::after{
+:root {
+    --color-primary: #a8d5a2;        /* светло-зелёный — основной цвет темы */
+    --color-primary-strong: #4caf50; /* насыщенный зелёный — бордюры, иконка листа */
+    --color-accent: #1b5e20;         /* тёмно-зелёный — акцент (footer, visited-ссылки) */
+    --color-header: #2e7d32;         /* фон шапки и кнопок */
+    --color-bg: #f4fff4;             /* фон страницы */
+    --color-surface: #ffffff;        /* фон карточек-секций */
+    --color-surface-alt: #dff5df;    /* фон aside */
+    --color-text: #234d20;           /* основной текст (проверено: контраст > 4.5:1) */
+    --color-border: #81c784;         /* бордюры полей ввода */
+    --color-on-dark: #ffffff;        /* текст на тёмном фоне */
+
+    /* Шрифты */
+    --font-main: Arial, Helvetica, sans-serif;
+    --font-heading: "Segoe UI", Arial, sans-serif;
+    --font-size-base: 16px;
+}
+
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4fff4;
-    color: #234d20;
+    font-family: var(--font-main);
+    font-size: var(--font-size-base);
+    background-color: var(--color-bg);
+    color: var(--color-text);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-
 }
+
 header {
-    background-color: #2e7d32;
-    color: white;
+    position: static;
+    background-color: var(--color-header);
+    color: var(--color-on-dark);
     text-align: center;
     padding: 20px 0;
 }
 
 header h1 {
     margin: 0 0 10px;
+    font-family: var(--font-heading);
 }
 
 .container {
@@ -40,45 +60,149 @@ main {
 }
 
 section {
-    background-color: white;
+    background-color: var(--color-surface);
     margin-bottom: 25px;
     padding: 25px;
     border-radius: 10px;
-    border-left: 5px solid #4caf50;
+    border-left: 5px solid var(--color-primary-strong);
+    box-shadow: 17px 12px 47px 0px rgba(34, 60, 80, 0.3);
 }
 
 h2 {
-    color: #2e7d32;
+    color: var(--color-header);
+    font-family: var(--font-heading);
     margin-bottom: 20px;
 }
+
 .about {
     text-align: center;
 }
 
-.about img {
-    border-radius: 50%;
-    border: 4px solid #4caf50;
-    object-fit: cover;
+.avatar-wrap {
+    position: relative;
+    display: inline-block;
     margin-bottom: 20px;
 }
-section{
-    box-shadow: 17px 12px 47px 0px rgba(34, 60, 80, 0.3);
+
+.about img {
+    border: 4px solid var(--color-primary-strong);
+    object-fit: cover;
+    display: block;
+
 }
-.skills li{
+
+.avatar-wrap::after {
+    content: "🌿";
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-surface);
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes sprout {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.skills {
+    list-style: none;
+}
+
+.skills li {
+    position: relative;
+    padding: 8px 8px 8px 30px;
     margin-bottom: 12px;
+    border-radius: 6px;
+    opacity: 0;
+    animation: sprout 0.6s ease-out forwards;
+    transition: background-color 0.25s ease, letter-spacing 0.15s ease;
 }
-.skills li:last-child{
+
+.skills li:last-child {
     margin-bottom: 0;
 }
-.projects li{
+
+.skills li:nth-child(1) { animation-delay: 0.1s; }
+.skills li:nth-child(2) { animation-delay: 0.25s; }
+.skills li:nth-child(3) { animation-delay: 0.4s; }
+.skills li:nth-child(4) { animation-delay: 0.55s; }
+.skills li:nth-child(5) { animation-delay: 0.7s; }
+.skills li:nth-child(6) { animation-delay: 0.85s; }
+
+/* :hover — иконка листа через ::before */
+.skills li::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.skills li:hover {
+    background-color: var(--color-primary);
+}
+
+.skills li:hover::before {
+    content: "🍃";
+    opacity: 1;
+}
+
+/* :active — уменьшаем letter-spacing при нажатии */
+.skills li:active {
+    letter-spacing: -1px;
+}
+
+.projects li {
     margin-bottom: 12px;
 }
-.projects li:last-child{
+.projects li:last-child {
     margin-bottom: 0;
 }
+
+.eco-link {
+    color: var(--color-header);
+    text-decoration: underline;
+    transition: color 0.2s ease, letter-spacing 0.15s ease;
+}
+
+.eco-link:visited {
+    color: var(--color-accent);
+}
+
+.eco-link:hover {
+    color: var(--color-accent);
+    text-decoration-thickness: 2px;
+}
+
+.eco-link:active {
+    letter-spacing: 0.5px;
+}
+
+.eco-link:focus {
+    outline: 2px dashed var(--color-accent);
+    outline-offset: 3px;
+}
+
 aside {
     flex: 1;
-    background-color: #dff5df;
+    background-color: var(--color-surface-alt);
     padding: 25px;
     border-radius: 10px;
     height: fit-content;
@@ -90,11 +214,13 @@ aside {
 aside h2 {
     margin-top: 0;
 }
-.habits__list{
+
+.habits__list {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
+
 form {
     display: flex;
     flex-direction: column;
@@ -105,9 +231,11 @@ input,
 textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #81c784;
+    border: 1px solid var(--color-border);
     border-radius: 6px;
     font-size: 16px;
+    font-family: var(--font-main);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 textarea {
@@ -115,24 +243,43 @@ textarea {
     resize: none;
 }
 
+/* :focus — доступность полей формы */
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+}
+
 button {
-    background-color: #2e7d32;
-    color: white;
+    background-color: var(--color-header);
+    color: var(--color-on-dark);
     border: none;
     padding: 12px;
     border-radius: 6px;
     font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 button:hover {
-    background-color: #1b5e20;
+    background-color: var(--color-accent);
+}
+
+/* :active — визуальный отклик на клик */
+button:active {
+    background-color: var(--color-accent);
+    transform: scale(0.98);
+}
+
+button:focus {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
 }
 
 footer {
-    background-color: #1b5e20;
-    color: white;
-    text-align: center;
+    background-color: var(--color-accent);
+    color: var(--color-on-dark);
     padding: 20px;
     margin-top: 30px;
 }

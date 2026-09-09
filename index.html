@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>О себе — Эко-активист</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Внутренний блок стилей (по заданию ЛР): footer — тень и выравнивание */
+        footer {
+            box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            letter-spacing: 0.4px;
+        }
+    </style>
 </head>
 <body>
 
@@ -19,12 +27,15 @@
         <section class="about">
             <h2>Обо мне</h2>
 
-            <img
-                src="./image/avatar.jpg!d"
-                alt="Аватар эко-активиста"
-                width="180"
-                height="180"
-            >
+            <div class="avatar-wrap">
+                <img
+                    src="./image/avatar.jpg!d"
+                    alt="Аватар эко-активиста"
+                    width="180"
+                    height="180"
+                    style="border-radius: 50%;"
+                >
+            </div>
 
             <p>
                 Я интересуюсь экологией и современными технологиями,
@@ -123,6 +134,15 @@
             <li>Экономить воду</li>
             <li>Использовать многоразовые сумки</li>
         </ul>
+
+        <p>
+            <a
+                href="https://ru.wikipedia.org/wiki/Zero_waste"
+                class="eco-link"
+                target="_blank"
+                rel="noopener"
+            >Подробнее о Zero Waste →</a>
+        </p>
     </aside>
 
 </div>
